@@ -1,0 +1,34 @@
+{
+  "name": "elysia-helmet",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "DevTobias",
+  "keywords": [
+    "elysia",
+    "helmet"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "require": "./dist/index.js",
+    "import": "./dist/index.js",
+    "node": "./dist/index.js",
+    "default": "./dist/index.js"
+  },
+  "files": [
+    "dist/index.js",
+    "dist/index.d.ts"
+  ],
+  "scripts": {
+    "build": "rm -r dist && bun build src/index.ts --outdir ./dist --target bun --minify --external elysia && bun types",
+    "types": "tsc && bunx dts-bundle --name index --main dist/types/index.d.ts --out ../index.d.ts && rm -r dist/types"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "elysia": "^0.6.17",
+    "typescript": "*"
+  },
+  "peerDependencies": {
+    "elysia": ">= 0.2.0"
+  }
+}

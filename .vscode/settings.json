@@ -1,0 +1,36 @@
+{
+  // !Editor settings
+  "cSpell.language": "en,de-de",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": { "source.fixAll": true },
+
+  // !Explorer
+
+  // Enable and configure file nesting
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "README.md": "LICENSE",
+    "package.json": "tsconfig.json,.editorconfig,.gitignore"
+  },
+
+  // Exclude useless files from explorer
+  "files.exclude": {
+    "**/bun.lockb": true,
+    "**/node_modules": true
+  },
+
+  //! Language features
+
+  // Typescript
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+
+  //! Formatters
+  "[json][jsonc][html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript][javascript]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  }
+}
