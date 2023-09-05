@@ -9,3 +9,10 @@ bun add elysia-helmet
 ```
 
 ## Getting Started
+
+```typescript
+import { Elysia } from 'elysia';
+import { helmet } from 'elysia-helmet';
+
+new Elysia().use(helmet()).listen(3000);
+```

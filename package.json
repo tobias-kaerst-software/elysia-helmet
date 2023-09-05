@@ -1,5 +1,6 @@
 {
   "name": "elysia-helmet",
+  "description": "Help secure Elysia apps with various HTTP headers ",
   "version": "1.0.0",
   "license": "MIT",
   "author": "DevTobias",
