@@ -1,7 +1,7 @@
 {
   "name": "elysia-helmet",
   "description": "Help secure Elysia apps with various HTTP headers ",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "author": "DevTobias",
   "keywords": [
@@ -23,10 +23,14 @@
   "scripts": {
     "build": "rm -r dist && bun build src/index.ts --outdir ./dist --target bun --minify --external elysia && tsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevTobias/elysia-helmet.git"
+  },
   "devDependencies": {
-    "bun-types": "latest",
-    "elysia": "^0.6.17",
-    "typescript": "*"
+    "bun-types": "^1.0.20",
+    "elysia": "^0.8.3",
+    "typescript": "^5.3.3"
   },
   "peerDependencies": {
     "elysia": ">= 0.2.0"
