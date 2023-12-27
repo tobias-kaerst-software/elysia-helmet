@@ -21,7 +21,7 @@
     "dist/index.d.ts"
   ],
   "scripts": {
-    "build": "rm -r dist && bun build src/index.ts --outdir ./dist --target bun --minify --external elysia && tsc"
+    "build": "rm -rf dist && bun build src/index.ts --outdir ./dist --target bun --minify --external elysia && tsc"
   },
   "repository": {
     "type": "git",
