@@ -13,7 +13,9 @@ export interface ReferrerPolicyOptions {
   policy?: ReferrerPolicyToken | ReferrerPolicyToken[];
 }
 
-type ReferrerPolicy = (options?: Readonly<ReferrerPolicyOptions>) => readonly [string, string];
+type ReferrerPolicy = (
+  options?: Readonly<ReferrerPolicyOptions>
+) => readonly [string, string];
 
 const ALLOWED_TOKENS = new Set<ReferrerPolicyToken>([
   'no-referrer',
@@ -27,7 +29,9 @@ const ALLOWED_TOKENS = new Set<ReferrerPolicyToken>([
   '',
 ]);
 
-const getHeaderValueFromOptions = ({ policy = 'no-referrer' }: Readonly<ReferrerPolicyOptions>): string => {
+const getHeaderValueFromOptions = ({
+  policy = 'no-referrer',
+}: Readonly<ReferrerPolicyOptions>): string => {
   const tokens = typeof policy === 'string' ? [policy] : policy;
 
   if (tokens.length === 0) {
@@ -37,9 +41,17 @@ const getHeaderValueFromOptions = ({ policy = 'no-referrer' }: Readonly<Referrer
   const tokensSeen = new Set<ReferrerPolicyToken>();
   tokens.forEach((token) => {
     if (!ALLOWED_TOKENS.has(token)) {
-      throw new Error(`Referrer-Policy received an unexpected policy token ${JSON.stringify(token)}`);
+      throw new Error(
+        `Referrer-Policy received an unexpected policy token ${JSON.stringify(
+          token
+        )}`
+      );
     } else if (tokensSeen.has(token)) {
-      throw new Error(`Referrer-Policy received a duplicate policy token ${JSON.stringify(token)}`);
+      throw new Error(
+        `Referrer-Policy received a duplicate policy token ${JSON.stringify(
+          token
+        )}`
+      );
     }
     tokensSeen.add(token);
   });

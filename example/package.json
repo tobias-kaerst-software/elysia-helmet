@@ -1,0 +1,15 @@
+{
+  "name": "example",
+  "version": "1.0.50",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "elysia": "^1.0.25",
+    "elysia-helmet": "file:.."
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}

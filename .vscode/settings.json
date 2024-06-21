@@ -2,7 +2,9 @@
   // !Editor settings
   "cSpell.language": "en,de-de",
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": { "source.fixAll": true },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
 
   // !Explorer
 
@@ -27,10 +29,7 @@
   "typescript.preferences.importModuleSpecifier": "non-relative",
 
   //! Formatters
-  "[json][jsonc][html]": {
+  "[json][jsonc][html][typescript][javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript][javascript]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   }
 }

@@ -1,0 +1,35 @@
+name: Elysia Helmet CD Pipeline
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/**'
+    branches:
+      - 'main'
+
+jobs:
+  deploy:
+    name: Build and deploy the repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build code
+        run: bun run build
+
+      - name: 'Publish'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm publish --access=public

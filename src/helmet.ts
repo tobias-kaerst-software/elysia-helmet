@@ -1,14 +1,38 @@
-import { ContentSecurityPolicyOptions, contentSecurityPolicy } from './policies/content-security-policy';
-import { CrossOriginEmbedderPolicyOptions, crossOriginEmbedderPolicy } from './policies/cross-origin-embedder-policy';
-import { CrossOriginOpenerPolicyOptions, crossOriginOpenerPolicy } from './policies/cross-origin-opener-policy';
-import { CrossOriginResourcePolicyOptions, crossOriginResourcePolicy } from './policies/cross-origin-resource-policy';
+import {
+  ContentSecurityPolicyOptions,
+  contentSecurityPolicy,
+} from './policies/content-security-policy';
+import {
+  CrossOriginEmbedderPolicyOptions,
+  crossOriginEmbedderPolicy,
+} from './policies/cross-origin-embedder-policy';
+import {
+  CrossOriginOpenerPolicyOptions,
+  crossOriginOpenerPolicy,
+} from './policies/cross-origin-opener-policy';
+import {
+  CrossOriginResourcePolicyOptions,
+  crossOriginResourcePolicy,
+} from './policies/cross-origin-resource-policy';
 import { originAgentCluster } from './policies/origin-agent-cluster';
-import { ReferrerPolicyOptions, referrerPolicy } from './policies/referrer-policy';
-import { StrictTransportSecurityOptions, strictTransportSecurity } from './policies/strict-transport-security';
+import {
+  ReferrerPolicyOptions,
+  referrerPolicy,
+} from './policies/referrer-policy';
+import {
+  StrictTransportSecurityOptions,
+  strictTransportSecurity,
+} from './policies/strict-transport-security';
 import { xContentTypeOptions } from './policies/x-content-type-options';
-import { XDnsPrefetchControlOptions, xDnsPrefetchControl } from './policies/x-dns-prefetch-control';
+import {
+  XDnsPrefetchControlOptions,
+  xDnsPrefetchControl,
+} from './policies/x-dns-prefetch-control';
 import { xDownloadOptions } from './policies/x-download-options';
-import { XFrameOptionsOptions, xFrameOptions } from './policies/x-frame-options';
+import {
+  XFrameOptionsOptions,
+  xFrameOptions,
+} from './policies/x-frame-options';
 import {
   XPermittedCrossDomainPoliciesOptions,
   xPermittedCrossDomainPolicies,
@@ -20,6 +44,7 @@ type RemoveHeaderFunction = (name: string) => void;
 
 export type HelmetOptions = {
   seed?: string;
+  aot?: boolean;
   contentSecurityPolicy?: ContentSecurityPolicyOptions | boolean;
   crossOriginEmbedderPolicy?: CrossOriginEmbedderPolicyOptions | boolean;
   crossOriginOpenerPolicy?: CrossOriginOpenerPolicyOptions | boolean;
@@ -36,7 +61,10 @@ export type HelmetOptions = {
       strictTransportSecurity?: never;
     }
 ) &
-  ({ xContentTypeOptions?: boolean; noSniff?: never } | { noSniff?: boolean; xContentTypeOptions?: never }) &
+  (
+    | { xContentTypeOptions?: boolean; noSniff?: never }
+    | { noSniff?: boolean; xContentTypeOptions?: never }
+  ) &
   (
     | {
         xDnsPrefetchControl?: XDnsPrefetchControlOptions | boolean;
@@ -47,23 +75,36 @@ export type HelmetOptions = {
         xDnsPrefetchControl?: never;
       }
   ) &
-  ({ xDownloadOptions?: boolean; ieNoOpen?: never } | { ieNoOpen?: boolean; xDownloadOptions?: never }) &
+  (
+    | { xDownloadOptions?: boolean; ieNoOpen?: never }
+    | { ieNoOpen?: boolean; xDownloadOptions?: never }
+  ) &
   (
     | { xFrameOptions?: XFrameOptionsOptions | boolean; frameguard?: never }
     | { frameguard?: XFrameOptionsOptions | boolean; xFrameOptions?: never }
   ) &
   (
     | {
-        xPermittedCrossDomainPolicies?: XPermittedCrossDomainPoliciesOptions | boolean;
+        xPermittedCrossDomainPolicies?:
+          | XPermittedCrossDomainPoliciesOptions
+          | boolean;
         permittedCrossDomainPolicies?: never;
       }
     | {
-        permittedCrossDomainPolicies?: XPermittedCrossDomainPoliciesOptions | boolean;
+        permittedCrossDomainPolicies?:
+          | XPermittedCrossDomainPoliciesOptions
+          | boolean;
         xPermittedCrossDomainPolicies?: never;
       }
   ) &
-  ({ xPoweredBy?: boolean; hidePoweredBy?: never } | { hidePoweredBy?: boolean; xPoweredBy?: never }) &
-  ({ xXssProtection?: boolean; xssFilter?: never } | { xssFilter?: boolean; xXssProtection?: never });
+  (
+    | { xPoweredBy?: boolean; hidePoweredBy?: never }
+    | { hidePoweredBy?: boolean; xPoweredBy?: never }
+  ) &
+  (
+    | { xXssProtection?: boolean; xssFilter?: never }
+    | { xssFilter?: boolean; xXssProtection?: never }
+  );
 
 type SetHelmetHeaders = (
   setHeader: SetHeaderFunction,
@@ -71,7 +112,11 @@ type SetHelmetHeaders = (
   options: Readonly<HelmetOptions>
 ) => void;
 
-export const setHelmetHeaders: SetHelmetHeaders = (setHeader, removeHeader, options) => {
+export const setHelmetHeaders: SetHelmetHeaders = (
+  setHeader,
+  removeHeader,
+  options
+) => {
   switch (options.contentSecurityPolicy) {
     case undefined:
     case true:
@@ -145,9 +190,12 @@ export const setHelmetHeaders: SetHelmetHeaders = (setHeader, removeHeader, opti
   }
 
   if ('strictTransportSecurity' in options && 'hsts' in options) {
-    throw new Error('Strict-Transport-Security option was specified twice. Remove `hsts` to silence this warning.');
+    throw new Error(
+      'Strict-Transport-Security option was specified twice. Remove `hsts` to silence this warning.'
+    );
   }
-  const strictTransportSecurityOption = options.strictTransportSecurity ?? options.hsts;
+  const strictTransportSecurityOption =
+    options.strictTransportSecurity ?? options.hsts;
   switch (strictTransportSecurityOption) {
     case undefined:
     case true:
@@ -161,9 +209,12 @@ export const setHelmetHeaders: SetHelmetHeaders = (setHeader, removeHeader, opti
   }
 
   if ('xContentTypeOptions' in options && 'noSniff' in options) {
-    throw new Error('X-Content-Type-Options option was specified twice. Remove `noSniff` to silence this warning.');
+    throw new Error(
+      'X-Content-Type-Options option was specified twice. Remove `noSniff` to silence this warning.'
+    );
   }
-  const xContentTypeOptionsOption = options.xContentTypeOptions ?? options.noSniff;
+  const xContentTypeOptionsOption =
+    options.xContentTypeOptions ?? options.noSniff;
   switch (xContentTypeOptionsOption) {
     case undefined:
     case true:
@@ -181,7 +232,8 @@ export const setHelmetHeaders: SetHelmetHeaders = (setHeader, removeHeader, opti
       'X-DNS-Prefetch-Control option was specified twice. Remove `dnsPrefetchControl` to silence this warning.'
     );
   }
-  const xDnsPrefetchControlOption = options.xDnsPrefetchControl ?? options.dnsPrefetchControl;
+  const xDnsPrefetchControlOption =
+    options.xDnsPrefetchControl ?? options.dnsPrefetchControl;
   switch (xDnsPrefetchControlOption) {
     case undefined:
     case true:
@@ -195,7 +247,9 @@ export const setHelmetHeaders: SetHelmetHeaders = (setHeader, removeHeader, opti
   }
 
   if ('xDownloadOptions' in options && 'ieNoOpen' in options) {
-    throw new Error('X-Download-Options option was specified twice. Remove `ieNoOpen` to silence this warning.');
+    throw new Error(
+      'X-Download-Options option was specified twice. Remove `ieNoOpen` to silence this warning.'
+    );
   }
   const xDownloadOptionsOption = options.xDownloadOptions ?? options.ieNoOpen;
   switch (xDownloadOptionsOption) {
@@ -211,7 +265,9 @@ export const setHelmetHeaders: SetHelmetHeaders = (setHeader, removeHeader, opti
   }
 
   if ('xFrameOptions' in options && 'frameguard' in options) {
-    throw new Error('X-Frame-Options option was specified twice. Remove `frameguard` to silence this warning.');
+    throw new Error(
+      'X-Frame-Options option was specified twice. Remove `frameguard` to silence this warning.'
+    );
   }
   const xFrameOptionsOption = options.xFrameOptions ?? options.frameguard;
   switch (xFrameOptionsOption) {
@@ -226,13 +282,17 @@ export const setHelmetHeaders: SetHelmetHeaders = (setHeader, removeHeader, opti
       break;
   }
 
-  if ('xPermittedCrossDomainPolicies' in options && 'permittedCrossDomainPolicies' in options) {
+  if (
+    'xPermittedCrossDomainPolicies' in options &&
+    'permittedCrossDomainPolicies' in options
+  ) {
     throw new Error(
       'X-Permitted-Cross-Domain-Policies option was specified twice. Remove `permittedCrossDomainPolicies` to silence this warning.'
     );
   }
   const xPermittedCrossDomainPoliciesOption =
-    options.xPermittedCrossDomainPolicies ?? options.permittedCrossDomainPolicies;
+    options.xPermittedCrossDomainPolicies ??
+    options.permittedCrossDomainPolicies;
   switch (xPermittedCrossDomainPoliciesOption) {
     case undefined:
     case true:
@@ -241,12 +301,16 @@ export const setHelmetHeaders: SetHelmetHeaders = (setHeader, removeHeader, opti
     case false:
       break;
     default:
-      setHeader(xPermittedCrossDomainPolicies(xPermittedCrossDomainPoliciesOption));
+      setHeader(
+        xPermittedCrossDomainPolicies(xPermittedCrossDomainPoliciesOption)
+      );
       break;
   }
 
   if ('xPoweredBy' in options && 'hidePoweredBy' in options) {
-    throw new Error('X-Powered-By option was specified twice. Remove `hidePoweredBy` to silence this warning.');
+    throw new Error(
+      'X-Powered-By option was specified twice. Remove `hidePoweredBy` to silence this warning.'
+    );
   }
   const xPoweredByOption = options.xPoweredBy ?? options.hidePoweredBy;
   switch (xPoweredByOption) {
@@ -262,7 +326,9 @@ export const setHelmetHeaders: SetHelmetHeaders = (setHeader, removeHeader, opti
   }
 
   if ('xXssProtection' in options && 'xssFilter' in options) {
-    throw new Error('X-XSS-Protection option was specified twice. Remove `xssFilter` to silence this warning.');
+    throw new Error(
+      'X-XSS-Protection option was specified twice. Remove `xssFilter` to silence this warning.'
+    );
   }
   const xXssProtectionOption = options.xXssProtection ?? options.xssFilter;
   switch (xXssProtectionOption) {

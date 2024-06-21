@@ -6,7 +6,9 @@ export interface StrictTransportSecurityOptions {
   preload?: boolean;
 }
 
-type StrictTransportSecurity = (options?: Readonly<StrictTransportSecurityOptions>) => readonly [string, string];
+type StrictTransportSecurity = (
+  options?: Readonly<StrictTransportSecurityOptions>
+) => readonly [string, string];
 
 const parseMaxAge = (value: number = DEFAULT_MAX_AGE): number => {
   if (value >= 0 && Number.isFinite(value)) {
@@ -20,7 +22,9 @@ const parseMaxAge = (value: number = DEFAULT_MAX_AGE): number => {
   );
 };
 
-const getHeaderValueFromOptions = (options: Readonly<StrictTransportSecurityOptions>): string => {
+const getHeaderValueFromOptions = (
+  options: Readonly<StrictTransportSecurityOptions>
+): string => {
   if ('maxage' in options) {
     throw new Error(
       'Strict-Transport-Security received an unsupported property, `maxage`. Did you mean to pass `maxAge`?'
@@ -45,7 +49,9 @@ const getHeaderValueFromOptions = (options: Readonly<StrictTransportSecurityOpti
   return directives.join('; ');
 };
 
-export const strictTransportSecurity: StrictTransportSecurity = (options = {}) => {
+export const strictTransportSecurity: StrictTransportSecurity = (
+  options = {}
+) => {
   const headerValue = getHeaderValueFromOptions(options);
   return ['Strict-Transport-Security', headerValue] as const;
 };
