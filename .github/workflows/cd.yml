@@ -28,8 +28,7 @@ jobs:
       - name: Build code
         run: bun run build
 
-      - name: 'Publish'
+      - name: Publish package
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          npm publish --access=public
