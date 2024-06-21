@@ -28,6 +28,9 @@ jobs:
       - name: Build code
         run: bun run build
 
+      - name: Setup Node runtime
+        uses: actions/setup-node@v4
+
       - name: Publish package
         run: npm publish
         env:
