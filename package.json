@@ -1,7 +1,7 @@
 {
   "name": "elysia-helmet",
   "description": "Help secure Elysia apps with various HTTP headers ",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "license": "MIT",
   "author": "DevTobias",
   "keywords": [
@@ -28,10 +28,10 @@
   },
   "devDependencies": {
     "bun-types": "latest",
-    "elysia": "^1.0.25",
-    "typescript": "^.5.2"
+    "elysia": "^1.2.0",
+    "typescript": "^5.5.2"
   },
   "peerDependencies": {
-    "elysia": ">= 1.0.0"
+    "elysia": ">= 1.2.0"
   }
 }

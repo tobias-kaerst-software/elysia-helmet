@@ -5,7 +5,7 @@
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
-    "elysia": "^1.0.25",
+    "elysia": "^1.2.0",
     "elysia-helmet": "file:.."
   },
   "devDependencies": {
