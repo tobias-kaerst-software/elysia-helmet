@@ -43,6 +43,7 @@ type SetHeaderFunction = (header: readonly [string, string]) => void;
 type RemoveHeaderFunction = (name: string) => void;
 
 export type HelmetOptions = {
+  enabled?: boolean;
   seed?: string;
   aot?: boolean;
   contentSecurityPolicy?: ContentSecurityPolicyOptions | boolean;
