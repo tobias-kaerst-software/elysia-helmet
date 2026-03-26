@@ -1,35 +1,43 @@
 {
-  // !Editor settings
-  "cSpell.language": "en,de-de",
+  // Editor
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "explicit",
+    "source.action.useSortedAttributes.biome": "explicit"
   },
 
-  // !Explorer
-
-  // Enable and configure file nesting
+  // Explorer & File Nesting
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
     "README.md": "LICENSE",
-    "package.json": "tsconfig.json,.editorconfig,.gitignore"
+    "package.json": "bun.lock,tsconfig.json,biome.json",
+    "mise.toml": ".editorconfig,.gitignore"
+  },
+  "files.exclude": { "**/node_modules": true },
+
+  // Biome
+  "[typescript][jsonc][json]": {
+    "editor.defaultFormatter": "biomejs.biome"
   },
 
-  // Exclude useless files from explorer
-  "files.exclude": {
-    "**/bun.lockb": true,
-    "**/node_modules": true
-  },
-
-  //! Language features
-
-  // Typescript
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.preferences.importModuleSpecifier": "non-relative",
-
-  //! Formatters
-  "[json][jsonc][html][typescript][javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  // Spell Checker
+  "cSpell.ignorePaths": ["go.mod", "go.sum"],
+  "cSpell.language": "en,de-de",
+  "cSpell.words": [
+    "credentialless",
+    "dashify",
+    "elysia",
+    "esnext",
+    "frameguard",
+    "hsts",
+    "Kärst",
+    "maxage",
+    "noopen",
+    "nosniff",
+    "outdir",
+    "sameorigin",
+    "ultracite"
+  ]
 }

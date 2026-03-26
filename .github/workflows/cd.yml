@@ -13,13 +13,11 @@ jobs:
     name: Build and deploy the repository
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - name: Setup bun
-        uses: oven-sh/setup-bun@v1
+      - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: "1.3.11"
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
@@ -29,7 +27,7 @@ jobs:
         run: bun run build
 
       - name: Setup Node runtime
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           registry-url: 'https://registry.npmjs.org'
 

@@ -1,3 +1,3 @@
 export const xContentTypeOptions: () => readonly [string, string] = () => {
-  return ['X-Content-Type-Options', 'nosniff'] as const;
+  return ["X-Content-Type-Options", "nosniff"] as const;
 };

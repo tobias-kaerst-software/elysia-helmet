@@ -6,52 +6,38 @@ export interface StrictTransportSecurityOptions {
   preload?: boolean;
 }
 
-type StrictTransportSecurity = (
-  options?: Readonly<StrictTransportSecurityOptions>
-) => readonly [string, string];
+type StrictTransportSecurity = (options?: Readonly<StrictTransportSecurityOptions>) => readonly [string, string];
 
 const parseMaxAge = (value: number = DEFAULT_MAX_AGE): number => {
   if (value >= 0 && Number.isFinite(value)) {
     return Math.floor(value);
   }
 
-  throw new Error(
-    `Strict-Transport-Security: ${JSON.stringify(
-      value
-    )} is not a valid value for maxAge. Please choose a positive integer.`
-  );
+  throw new Error(`Strict-Transport-Security: ${JSON.stringify(value)} is not a valid value for maxAge. Please choose a positive integer.`);
 };
 
-const getHeaderValueFromOptions = (
-  options: Readonly<StrictTransportSecurityOptions>
-): string => {
-  if ('maxage' in options) {
-    throw new Error(
-      'Strict-Transport-Security received an unsupported property, `maxage`. Did you mean to pass `maxAge`?'
-    );
+const getHeaderValueFromOptions = (options: Readonly<StrictTransportSecurityOptions>): string => {
+  if ("maxage" in options) {
+    throw new Error("Strict-Transport-Security received an unsupported property, `maxage`. Did you mean to pass `maxAge`?");
   }
-  if ('includeSubdomains' in options) {
-    throw new Error(
-      'Strict-Transport-Security middleware should use `includeSubDomains` instead of `includeSubdomains`. (The correct one has an uppercase "D".)'
-    );
+  if ("includeSubdomains" in options) {
+    throw new Error('Strict-Transport-Security middleware should use `includeSubDomains` instead of `includeSubdomains`. (The correct one has an uppercase "D".)');
   }
 
   const directives: string[] = [`max-age=${parseMaxAge(options.maxAge)}`];
 
   if (options.includeSubDomains === undefined || options.includeSubDomains) {
-    directives.push('includeSubDomains');
+    directives.push("includeSubDomains");
   }
 
   if (options.preload) {
-    directives.push('preload');
+    directives.push("preload");
   }
 
-  return directives.join('; ');
+  return directives.join("; ");
 };
 
-export const strictTransportSecurity: StrictTransportSecurity = (
-  options = {}
-) => {
+export const strictTransportSecurity: StrictTransportSecurity = (options = {}) => {
   const headerValue = getHeaderValueFromOptions(options);
-  return ['Strict-Transport-Security', headerValue] as const;
+  return ["Strict-Transport-Security", headerValue] as const;
 };

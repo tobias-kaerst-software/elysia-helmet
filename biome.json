@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["ultracite/biome/core"],
+  "formatter": { "lineWidth": 165 },
+  "javascript": { "globals": ["Deno"] },
+  "linter": {
+    "rules": {
+      "complexity": "off",
+      "style": { "useBlockStatements": "off" }
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": { "useSortedInterfaceMembers": "off" }
+    }
+  }
+}
